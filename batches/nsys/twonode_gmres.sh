@@ -5,7 +5,7 @@
 #SBATCH --ntasks-per-node=4
 # if keyword omitted: Max. 96 tasks per node
 # (SMT enabled, see comment below)
-#SBATCH --cpus-per-task=20
+#SBATCH --cpus-per-task=10
 # for OpenMP/hybrid jobs only
 #SBATCH --output=/p/project/chwu29/matthaei1/output/twonode_gmres_nsys-%j.log
 #SBATCH --time=00:10:00

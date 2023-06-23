@@ -1,12 +1,8 @@
 #!/bin/bash
 #SBATCH --account=hwu29
-# budget account where contingent is taken from
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=4
-# if keyword omitted: Max. 96 tasks per node
-# (SMT enabled, see comment below)
-#SBATCH --cpus-per-task=20
-# for OpenMP/hybrid jobs only
+#SBATCH --cpus-per-task=10
 #SBATCH --output=/p/project/chwu29/matthaei1/output/twonode_amg_sse-%j.log
 #SBATCH --time=00:10:00
 #SBATCH --partition=gpus
@@ -19,5 +15,5 @@ module load GCC ParaStationMPI MPI-settings/CUDA UCX-settings/RC-CUDA
 
 jutil env activate -p chwu29
 cd $PROJECT/matthaei1/DDalphaAMG_sse
-srun --cpu-bind=rank_ldom --cpus-per-task=${SLURM_CPUS_PER_TASK} \
+srun --distribution=block:cyclic:fcyclic --cpus-per-task=${SLURM_CPUS_PER_TASK} \
     dd_alpha_amg $PROJECT/matthaei1/alpha-repro/inis/twonode_amg.ini

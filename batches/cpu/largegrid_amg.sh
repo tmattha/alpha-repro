@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH --account=hwu29
-#SBATCH --nodes=2
+#SBATCH --nodes=16
 #SBATCH --ntasks-per-node=4
 #SBATCH --cpus-per-task=10
-#SBATCH --output=/p/project/chwu29/matthaei1/output/twonode_amg_cpu-%j.log
+#SBATCH --output=/p/project/chwu29/matthaei1/output/largegrid_amg_cpu-%j.log
 #SBATCH --time=00:10:00
 #SBATCH --partition=gpus
 
@@ -16,4 +16,4 @@ module load GCC ParaStationMPI MPI-settings/CUDA UCX-settings/RC-CUDA
 jutil env activate -p chwu29
 cd $PROJECT/matthaei1/DDalphaAMG_cpu
 srun --distribution=block:cyclic:fcyclic --cpus-per-task=${SLURM_CPUS_PER_TASK} \
-    dd_alpha_amg $PROJECT/matthaei1/alpha-repro/inis/twonode_amg.ini
+    dd_alpha_amg $PROJECT/matthaei1/alpha-repro/inis/largegrid_amg.ini
